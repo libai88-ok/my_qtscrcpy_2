@@ -6,6 +6,8 @@
 #include "server/server.h"
 #include "decoder.h"
 #include "frames.h"
+#include "render/qyuvopenglwidget.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class Widget; }
 QT_END_NAMESPACE
@@ -29,5 +31,6 @@ private:
     server m_server;
     decoder m_decoder;
     Frames m_frames;
+    QYUVOpenGLWidget * m_videoWidget;
 };
 #endif // WIDGET_H

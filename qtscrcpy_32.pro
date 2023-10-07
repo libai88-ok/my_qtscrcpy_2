@@ -1,4 +1,4 @@
-QT       += core gui network
+QT       += core gui network opengl
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -23,6 +23,7 @@ include ($$PWD/adb/adb.pri)
 include ($$PWD/server/server.pri)
 include ($$PWD/decoder/decoder.pri)
 include ($$PWD/common/common.pri)
+include ($$PWD/render/render.pri)
 
 INCLUDEPATH += \
     $$PWD/third_party/ffmpeg/include \

@@ -20,7 +20,7 @@ class DeviceSocketEvent : public qscrcpyevent
 public:
     DeviceSocketEvent() : qscrcpyevent(DeviceSocket) {
 
-    };
+    }
 };
 
 #endif // QSCRCPYEVENT_H

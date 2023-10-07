@@ -17,11 +17,23 @@ Widget::Widget(QWidget *parent)
             m_decoder.startDecode();
         }
     });
-    connect(&m_decoder, &decoder::onNewFrame, this, [this]() {
-        qDebug() << "decoder::onNewFrame";
-    });
+
+
     m_frames.init();
     m_decoder.setFrames(&m_frames);
+    m_videoWidget = new QYUVOpenGLWidget();
+    m_videoWidget->resize(220, 450);
+
+    connect(&m_decoder, &decoder::onNewFrame, this, [this]() {
+        //qDebug() << "decoder::onNewFrame";
+        m_frames.lock();
+        const AVFrame * frame = m_frames.consumeRenderedFrame();
+        //渲染frame
+        m_videoWidget->setFrameSize(QSize(frame->width, frame->height));
+        m_videoWidget->updateTextures(frame->data[0], frame->data[1], frame->data[2], frame->linesize[0], frame->linesize[1], frame->linesize[2]);
+        m_frames.unLock();
+    });
+
 
 }
 
@@ -59,6 +71,7 @@ void Widget::on_startserver_clicked()
         //myProcess->reverseRemove("", "scrcpy");
         myProcess->execute("", arguments);*/
     m_server.start("", 27183, 720, 8000000);
+    m_videoWidget->show();
 }
 
 
